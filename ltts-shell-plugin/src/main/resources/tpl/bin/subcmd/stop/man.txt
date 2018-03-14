@@ -1,0 +1,4 @@
+停止平台应用子命令
+Usage: ltts stop <vmid>
+Parameters:
+     <vmid>           服务标识

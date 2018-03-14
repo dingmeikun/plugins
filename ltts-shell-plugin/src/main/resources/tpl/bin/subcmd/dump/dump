@@ -1,0 +1,37 @@
+#!/bin/sh
+########################################
+#
+# Description:查看平台应用线程信息
+# Usage:dump <vmid>
+#
+########################################
+
+###参数个数检查###
+if [ $# -lt 1 ]; then
+  subcmdDir="$BASEDIR/bin/subcmd/start"
+   echo "Subcommand: start"
+    if [ -f $subcmdDir/man.txt ]; then
+       echo "Desc: `sed -n '1p' $subcmdDir/man.txt`"
+       echo "`sed -n '2,$p' $subcmdDir/man.txt`"
+    fi
+    exit 1
+fi
+
+VMID=$1
+
+###检查实际PID进程###
+true_pid=`ps aux | grep java | grep $BASEDIR | grep $VMID | awk '{print $2}'`
+if [ "X$true_pid" != "X" ]; then
+	kill -3 "$true_pid"
+    if [ $? -ne 0 ]; then
+		echo "[ERROR] failed to dump $VMID info."
+		exit 1
+    else
+		echo "[INFO] dumped $VMID info.go to file $LTTS_VM_LOGGER/$VMID/console.log to check."
+    fi
+	
+    else
+    echo "[INFO] the service [$VMID] is not running!!!"
+fi
+
+exit 0

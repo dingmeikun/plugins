@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cn.sunline.odc</groupId>
+	<artifactId>ltts-shell-plugin</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>脚本生成插件</name>
+	<url>http://maven.apache.org</url>
+	<packaging>maven-plugin</packaging>
+	
+	<properties>
+		<ltts-module>true</ltts-module>
+		<access-rule>*;**/*</access-rule>
+		<commons-io.version>2.5</commons-io.version>
+		<maven-core.verion>3.0.4</maven-core.verion>
+		<maven-project.version>2.2.1</maven-project.version>
+		<maven-plugin-api.version>2.0</maven-plugin-api.version>
+		<maven-model.version>2.2.1</maven-model.version>
+		<maven-plugin-plugin.version>2.5.1</maven-plugin-plugin.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<!-- 第三方依赖jar -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+		<!-- maven插件所需插件项目依赖 -->
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-core</artifactId>
+			<version>${maven-core.verion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-project</artifactId>
+			<version>${maven-project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>${maven-plugin-api.version}</version>
+		</dependency>
+		<!-- 否则Mojo中的org.apache.maven.model.Resource，无法解析 -->
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-model</artifactId>
+			<version>${maven-model.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-plugin-plugin</artifactId>
+			<version>${maven-plugin-plugin.version}</version>
+		</dependency>
+	</dependencies>
+
+	<description>测试用打包項目
+		使用场景：通常用于版本时，对某些文件进行版本替换
+	实现基于google  maven-replacer-plugin 扩展：regex group的替换
+		http://liugang594.iteye.com/blog/2092427
+	主要扩展类：com.google.code.maven_replacer_plugin.TokenReplacer</description>
+	
+	<build>
+		<plugins>
+			<!-- 指定JDK编译版本 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<!-- 自定义Maven生成插件主要依赖plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<goalPrefix>ltts-shell</goalPrefix>
+				</configuration>
+				<executions>
+					<execution>
+						<id>help-goal</id>
+						<goals>
+							<goal>helpmojo</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>odc-public</id>
+			<!-- 分发配置，发布用 -->
+			<distributionManagement>
+				<repository>
+					<id>odc-releases</id>
+					<name>release</name>
+					<url>http://nexus.odc.sunline.cn/repository/maven-releases/</url>
+				</repository>
+				<snapshotRepository>
+					<id>odc-snapshots</id>
+					<name>snapshots</name>
+					<url>http://nexus.odc.sunline.cn/repository/maven-snapshots/</url>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>
+	</profiles>
+</project>

@@ -1,0 +1,157 @@
+#!/bin/sh
+#################################################
+#
+# Description: 启动平台应用
+# Usage: start <vmid>
+#
+#################################################
+
+###参数个数检查###
+if [ $# -lt 1 ]; then
+  subcmdDir="$BASEDIR/bin/subcmd/start"
+   echo "Subcommand: start"
+    if [ -f $subcmdDir/man.txt ]; then
+       echo "Desc: `sed -n '1p' $subcmdDir/man.txt`"
+       echo "`sed -n '2,$p' $subcmdDir/man.txt`"
+    fi
+    exit 1
+fi
+
+VMID=$1
+TAIL_PID="$LTTS_VM_LOGGER/$VMID/tailpid"
+
+###pid文件存在且大小不为0###
+if [ -s "$LTTS_VM_PID" ]; then
+  echo "[INFO] existing PID file found during start."
+  ###pid文件存在且可读###
+  if [ -r "$LTTS_VM_PID" ]; then
+    PID=`cat "$LTTS_VM_PID"`
+    ps -p $PID >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+      echo "[WARN] the service [$VMID] is already running on the $PID PID."
+      echo "[WARN] if the following process [$VMID] is not a process, remove the PID file and try again."
+      ps -f -p $PID
+      exit 1
+    else
+      echo "[INFO] removing/clearing stale PID file."
+      rm -f "$LTTS_VM_PID" >/dev/null 2>&1
+      if [ $? != 0 ]; then
+        ###文件存在且可写###
+        if [ -w "$LTTS_VM_PID" ]; then
+          cat /dev/null > "$LTTS_VM_PID"
+        else
+          echo "[WARN] unable to remove or clear stale PID file [$LTTS_VM_PID]. Start aborted."
+          exit 1
+        fi
+      fi
+    fi
+  ###文件不可读###
+  else
+    echo "[ERROR] unable to read PID file [$LTTS_VM_PID].Start aborted."
+    exit 1
+  fi
+###pid为空文件###
+else
+  rm -f "$LTTS_VM_PID" >/dev/null 2>&1
+  if [ $? != 0 ]; then
+    if [ ! -w "$LTTS_VM_PID" ]; then
+      echo "[ERROR] unable to remove or write to empty PID file [$LTTS_VM_PID]. Start aborted."
+      exit 1
+    fi
+  fi
+fi
+
+###检查配置目录是否存在###
+if [ ! -d "$LTTS_VM_ETC" ]; then
+   echo "[ERROR] the service [$VMID] configuration directory is not existed,check under the etc folder!!!"
+   exit 1
+fi
+
+###保存当前执行命令路径###
+BACKUP_CUR_DIR=`pwd`
+cd "$LTTS_VM_ETC"
+
+if [ "$LTTS_NEED_SETTING_FILE" == true ]; then
+	###检查setting配置文件是否存在###
+	if [ ! -f "$LTTS_SETTING_FILE" ]; then
+		echo "[ERROR] the service [$VMID] config file $LTTS_SETTING_FILE is not exist!!!"
+		exit 1
+	fi
+fi
+
+###检查日志配置文件是否存在###
+if [ ! -f "$LTTS_LOGGER_FILE" ]; then
+	echo "[ERROR] the service [$VMID] config file $LTTS_LOGGER_FILE is not exist!!!"
+	exit 1
+fi
+
+###日志目录检查###
+if [ ! -d "$LTTS_VM_LOGGER/$VMID" ]; then
+   mkdir -p "$LTTS_VM_LOGGER/$VMID"
+fi
+
+###JAVA启动工具###
+if [ ! -f "$JAVA_HOME/bin/java" ]; then
+   echo "[ERROR] JDK is not configured!!!"
+   exit 1
+fi
+
+###启动前将console.log日志追加到当前日期的日志文件中###
+if [ -r "$LTTS_VM_LOGGER/$VMID/console.log" ]; then
+   mkdir -p "$LTTS_VM_LOGGER/$VMID/console_logs"
+   cat "$LTTS_VM_LOGGER/$VMID/console.log" >> "$LTTS_VM_LOGGER/$VMID/console_logs/console_`date +20%y-%m-%d`.log"
+fi
+
+###启动前将gc.log日志备份###
+if [ -r "$LTTS_GC_LOG" ]; then
+   mkdir -p "$LTTS_VM_LOGGER/$VMID/gc_logs"
+   cat "$LTTS_GC_LOG" >> "$LTTS_VM_LOGGER/$VMID/gc_logs/gc_`date +20%y-%m-%d`.log"
+fi
+
+_RUNJAVA="$JAVA_HOME/bin/java"
+
+###执行JAVA启动命令###
+nohup "$_RUNJAVA" \
+	 $LTTS_JVM_OPTS \
+   -classpath :"$LTTS_VM_ETC:$LTTS_VM_FRW_LIB/*:$LTTS_VM_APP_LIB/*" \
+   -Xloggc:"$LTTS_GC_LOG" \
+   -Dsetting.file="$LTTS_SETTING_FILE" \
+   -Dplugin.global.conf.path="$LTTS_PLUGIN_FILE" \
+   -Dlog4j.configurationFile="$LTTS_LOGGER_FILE" \
+   -Dltts.vmid="$VMID" \
+   -Dltts.home="$BASEDIR" \
+   -Dltts.log.home="$LTTS_VM_LOGGER" \
+   -Dinternational.enable="$LTTS_LANGUAGE_CONF_FLAG" \
+   -Dlanguage.conf="$LTTS_LANGUAGE_CONF" \
+   -Dfile.encoding=UTF-8 \
+   "$LTTS_BOOT_CLASS" start \
+   > "$LTTS_VM_LOGGER/$VMID/console.log" 2>&1 &
+
+echo $! > "$LTTS_VM_PID"
+echo "[INFO] the service [$VMID] is started completely on the `cat $LTTS_VM_PID` PID"
+
+###回到用户的当前目录###
+cd "$BACKUP_CUR_DIR"
+
+###循环读取日志，直到遇到指定成功或失败标志位则退出###
+(tail -f "$LTTS_VM_LOGGER/$VMID/console.log" & echo $! > "$TAIL_PID") | while read line
+do
+  echo "$line"
+  if [[ "$line" =~ "$LTTS_START_OK_FLAG" ]]; then
+    echo "[INFO] the service [$VMID] is started successfully on the `cat $LTTS_VM_PID` PID"
+    # kill tail pid
+    kill -9 `cat $TAIL_PID`
+    rm -f "$TAIL_PID"
+    exit 0
+  fi
+  if [[ "$line" =~ "$LTTS_START_ERR_FLAG" ]]; then
+    echo "[ERROR] the service [$VMID] is start failed"
+    # kill tail pid
+    kill -9 `cat $TAIL_PID`
+    rm -f "$TAIL_PID"
+    exit 1
+  fi
+done
+
+exit 0
+

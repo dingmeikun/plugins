@@ -1,0 +1,71 @@
+#!/bin/sh
+##############################
+#
+# Description: 停止平台应用
+# Usage: stop <configFile>
+#
+##############################
+
+###参数个数检查###
+if [ $# -lt 1 ]; then
+   subcmdDir="$BASEDIR/bin/subcmd/stop"
+   if [ -d "$subcmdDir" ]; then
+      echo "Subcommand: stop"
+      if [ -f "$subcmdDir/man.txt" ]; then
+         echo "Desc: `sed -n '1p' $subcmdDir/man.txt`"
+         echo "`sed -n '2,$p' $subcmdDir/man.txt`"
+      fi
+   fi
+   exit 1
+fi
+
+VMID=$1
+
+if [ -f "$LTTS_VM_PID" ]; then
+  if [ -s "$LTTS_VM_PID" ]; then
+    PID=`cat "$LTTS_VM_PID"`
+    kill -TERM "$PID" >/dev/null 2>&1
+    if [ $? -gt 0 ]; then
+      echo "[WARN] PID file found but no matching process was found. Stop aborted."
+      exit 1
+    fi
+  else
+    echo "[WARN] PID file [$LTTS_VM_PID] is empty and has been ignored."
+    exit 1
+  fi
+else
+  echo "[$LTTS_VM_PID] was set but the specified file does not exist. Is service [$VMID] running? Stop aborted."
+  exit 1
+fi
+
+LTTS_TIMEOUT=1
+sleep "$LTTS_TIMEOUT"
+
+###检测是否成功停止###
+#若停不了，3秒太短，多循环等待3次，再kill -9
+# TODO TERM方式退出不了就进行dump
+for ((i=1;i<="$LTTS_STOP_TIMEOUT";i++));
+do
+  #true_pid=`ps aux | grep java | grep $BASEDIR | grep $VMID | awk '{print $2}'`
+  ps -p $PID >/dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    if [ $i -ge "$LTTS_STOP_TIMEOUT" ]; then
+       echo "[WARNING] the service [$VMID] on the $PID PID is not stopped completely. Stop service by kill -9!"
+       kill -9 "$PID"
+    else
+      sleep "$LTTS_TIMEOUT"
+    fi
+  else
+    break
+  fi
+done
+
+###清理PID文件###
+if [ -f "$LTTS_VM_PID" ]; then
+   rm -f "$LTTS_VM_PID"
+   echo "[INFO] $LTTS_VM_PID file is deleted completely"
+fi
+
+echo "[INFO] the service [$VMID] is stopped completely"
+exit 0
+

@@ -1,0 +1,4 @@
+重启平台应用子命令
+Usage: ltts restart <vmid>
+Parameters:
+     <vmid>           服务标识

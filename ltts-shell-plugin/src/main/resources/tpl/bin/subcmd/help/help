@@ -1,0 +1,38 @@
+#!/bin/sh
+###参数检查###
+if [ $# -eq 0 ]; then
+   subcmd="?"
+else
+   subcmd=$1
+fi
+
+###显示帮助说明###
+if [ "$subcmd" == "?" ]; then
+   echo "ltts <subcommand> [params...]"
+   ###显示全部子命令帮助说明（默认）###
+   for subcmdDir in $BASEDIR/bin/subcmd/*; do
+      if [ -d "$subcmdDir" ]; then
+         subcmd=${subcmdDir##*/}
+         if [ -f "$subcmdDir/$subcmd" ]; then
+            if [ -f "$subcmdDir/man.txt" ]; then
+               echo "     $subcmd - `sed -n '1p' $subcmdDir/man.txt`"
+            else
+               echo "     $subcmd"
+            fi
+         fi
+      fi
+   done
+else
+   ###显示指定子命令帮助说明（扩展）###
+   subcmdDir="$BASEDIR/bin/subcmd/$subcmd"
+   if [ -d "$subcmdDir" ]; then
+      echo "Subcommand: $subcmd"
+      if [ -f "$subcmdDir/man.txt" ]; then
+         echo "Desc: `sed -n '1p' $subcmdDir/man.txt`"
+         echo "`sed -n '2,$p' $subcmdDir/man.txt`"
+      fi
+   fi
+fi
+
+exit 0
+

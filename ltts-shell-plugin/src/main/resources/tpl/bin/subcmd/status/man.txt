@@ -1,0 +1,4 @@
+查看平台应用状态子命令
+Usage: ltts status <vmid>
+Parameters:
+     <vmid>           服务标识

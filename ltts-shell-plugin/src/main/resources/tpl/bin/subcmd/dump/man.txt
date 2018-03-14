@@ -1,0 +1,4 @@
+﻿平台应用dump信息子命令
+Usage: ltts dump <vmid>
+Parameters:
+     <vmid>           服务标识

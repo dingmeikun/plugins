@@ -1,0 +1,4 @@
+控制台启动平台应用子命令，Ctrl + C 退出控制台，不停止应用
+Usage: ltts consoled <vmid>
+Parameters:
+     <vmid>           服务标识

@@ -1,0 +1,31 @@
+#!/bin/sh
+#############################################
+#
+# Description:重启平台应用
+# Usage:restart <configFile>
+#
+#############################################
+
+###参数个数检查###
+if [ $# -lt 1 ]; then
+  subcmdDir="$BASEDIR/bin/subcmd/restart"
+   echo "Subcommand: restart"
+    if [ -f "$subcmdDir/man.txt" ]; then
+       echo "Desc: `sed -n '1p' $subcmdDir/man.txt`"
+       echo "`sed -n '2,$p' $subcmdDir/man.txt`"
+    fi
+    exit 1
+fi
+
+###先停止###
+sh -e "$BASEDIR/bin/ltts" stop $1
+
+###停止失败###
+if [ $? -gt 0 ]; then
+  exit 1
+fi
+
+###后启动###
+exec "$BASEDIR/bin/ltts" start $1
+
+exit 0

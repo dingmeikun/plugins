@@ -1,0 +1,107 @@
+#!/bin/sh
+#################################################
+#
+# Description: 平台脚本统一入口主命令
+# Usage: ltts [subcommand] [vmid]
+#
+#################################################
+
+BASEDIR=`dirname "$0"`/..
+BASEDIR=`(cd "$BASEDIR"; pwd)`
+###导出应用的绝对根路径###
+export BASEDIR=$BASEDIR
+
+
+###子命令检查###
+if [ $# -lt 2 -a X"$1" != X"status" ]; then
+   subcmd=help
+else
+   subcmd=$1
+   if [ "$subcmd" == "?" ]; then
+      subcmd=help
+   fi
+   
+   VMID=$2
+   
+   if [ -n "$VMID" -a "$subcmd" != "help" ]; then
+	   ###导出配置参数###
+		# set value by mvn plugin
+		export LTTS_SETTING_FILE="${_settingName}"
+		export LTTS_NEED_SETTING_FILE="${_needSettingFile}"
+		export LTTS_LOGGER_FILE="${_logConfigName}"
+		export LTTS_PLUGIN_FILE="${_pluginConfigName}"
+		export LTTS_BOOT_CLASS="${_mainClass}"
+		# vmOpts deprecated from 1.1.3
+		export LTTS_STOP_TIMEOUT="${_stopTimeout}"
+		# 2017-06-14 启动成功失败标识
+		export LTTS_START_OK_FLAG="${_startOkFlag}"
+		export LTTS_START_ERR_FLAG="${_startErrFlag}"
+		# set language configuration
+		export LTTS_LANGUAGE_CONF_FLAG="${_enableInternational}"
+		export LTTS_LANGUAGE_CONF="${_languageConf}"
+
+		###导出VM其他参数###
+		export LTTS_VM_LOGGER="$BASEDIR/log"
+		export LTTS_VM_ETC="$BASEDIR/etc/$VMID"
+		#export LTTS_VM_LIB="$BASEDIR/lib"
+		export LTTS_VM_FRW_LIB="$BASEDIR/lib/frw"
+		export LTTS_VM_APP_LIB="$BASEDIR/lib/app"
+		export LTTS_VM_PID="$LTTS_VM_LOGGER/$VMID/pid" 
+		export LTTS_GC_LOG="$LTTS_VM_LOGGER/$VMID/gc.log"
+		
+	  #echo "[INFO] load config $BASEDIR/etc/$VMID/ltts.conf"
+	  ####判断VM配置文件是否存在###
+	  if [ -r "$BASEDIR/etc/$VMID/ltts.conf" ]; then
+	      # echo "[INFO] the service [$VMID] $BASEDIR/etc/$VMID/env file exist,use to override default config!!!"
+		  source "$BASEDIR/etc/$VMID/ltts.conf"
+
+		  ###导出配置参数###
+		  if [ "X$settingName" != "X" ]; then
+			export LTTS_SETTING_FILE="$settingName"
+		  fi
+		  if [ "X$needSettingFile" != "X" ]; then
+			export LTTS_NEED_SETTING_FILE="$needSettingFile"
+		  fi
+		  if [ "X$logConfigName" != "X" ]; then
+			export LTTS_LOGGER_FILE="$logConfigName"
+		  fi
+		  if [ "X$pluginConfigName" != "X" ]; then
+			export LTTS_PLUGIN_FILE="$pluginConfigName"
+		  fi
+		  if [ "X$mainClass" != "X" ]; then
+			export LTTS_BOOT_CLASS="$mainClass"
+		  fi
+		  if [ "X$stopTimeout" != "X" ]; then
+			export LTTS_STOP_TIMEOUT="$stopTimeout"
+		  fi
+		  if [ "X$stopTimeout" != "X" ]; then
+			export LTTS_START_OK_FLAG="$startOkFlag"
+		  fi
+		  if [ "X$stopTimeout" != "X" ]; then
+			export LTTS_START_ERR_FLAG="$startErrFlag"
+		  fi
+	  fi
+	  LTTS_JVM_OPTS="$COM_OPTS $GC_OPTS $LOG_OPTS $JMX_OPTS $OTHER_OPTS"
+	  export LTTS_JVM_OPTS
+   fi
+fi
+
+subcmdDir="$BASEDIR/bin/subcmd/$subcmd"
+if [ ! -d "$subcmdDir" ]; then
+   echo "[ERROR] $subcmd subcommand directory is not existed!!!"
+   exit 1
+fi
+
+###参数移位###
+shift 1
+
+###子命令接口实现调用###
+subcmd="$subcmdDir/$subcmd"
+if [ ! -f "$subcmd" ]; then
+   echo "[ERROR] $subcmd subcommand file is not existed!!!"
+   exit 1
+fi
+exec $subcmd $@
+
+exit 0
+

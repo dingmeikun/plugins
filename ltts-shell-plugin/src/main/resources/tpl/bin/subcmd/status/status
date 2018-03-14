@@ -1,0 +1,50 @@
+#!/bin/sh
+########################################
+#
+# Description:查看平台应用进程状态
+# Usage:status <vmid>
+#
+########################################
+
+echo "---------------------------------------------------------------"
+printf "%-10s%-30s%-15s%-15s\n" NO VMID STATUS PID
+echo "---------------------------------------------------------------"
+if [ $# -lt 1 ]; then
+  index=1
+  for VMID in $(ls "$BASEDIR/etc")
+  do
+    if [ -d "$BASEDIR/etc/$VMID" ]; then
+      ###检查pid文件###
+      #true_pid=`ps aux | grep java | grep $BASEDIR | grep $VMID | awk '{print $2}'`
+      if [ -r "$BASEDIR/log/$VMID/pid" ]; then
+        PID=`cat $BASEDIR/log/$VMID/pid`
+        ps -p $PID >/dev/null 2>&1
+        if [ $? -eq 0 ]; then
+          printf "%-10s%-30.28s%-15s%-15s\n" $index $VMID RUNNING "$PID"
+        else
+          printf "%-10s%-30.28s%-15s%-15s\n" $index $VMID STOP NULL
+        fi
+      else
+        printf "%-10s%-30.28s%-15s%-15s\n" $index $VMID STOP NULL
+      fi
+    fi
+    let index++
+  done     
+  else
+    VMID=$1
+    ###检查pid文件###
+    #true_pid=`ps aux | grep java | grep "$BASEDIR" | grep "$VMID" | awk '{print $2}'`
+     if [ -r "$BASEDIR/log/$VMID/pid" ]; then
+      PID=`cat $BASEDIR/log/$VMID/pid`
+      ps -p $PID >/dev/null 2>&1
+        if [ $? -eq 0 ]; then
+          printf "%-10s%-30.28s%-15s%-15s\n" $index $VMID RUNNING "$PID"
+        else
+          printf "%-10s%-30.28s%-15s%-15s\n" $index $VMID STOP NULL
+        fi
+    else
+      printf "%-10s%-30.28s%-15s%-15s\n" 1 "$VMID" RUNNING "$PID"
+    fi
+fi
+echo "---------------------------------------------------------------"
+exit 0

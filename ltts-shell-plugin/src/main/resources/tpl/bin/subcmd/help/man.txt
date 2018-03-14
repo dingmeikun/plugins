@@ -1,0 +1,4 @@
+平台脚本帮助子命令
+Usage: ltts help <subcommand>
+Parameters:
+     <subcommand>      显示指定子命令插件说明
