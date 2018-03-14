@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- [Template id=文件服务 longname=文件服务] -->
+<SftpConfig>
+	<!-- [Template id=sftp longname=协议信息 multi=true] -->
+		<SftpProtocol id="${id}" protocolType="sftp" serverIp="${服务器IP|10.22.60.1}" serverPort="${服务器port|21}" userName="${登陆用户名|ftpuser}"
+			password="${登陆密码|ftpuser}" filePath="${文件根目录| }" keyPath="${私钥地址| }" connTimeoutInMs="${连接超时时间|5000}" />
+		<!-- [End] -->
+</SftpConfig>
+<!-- [End] -->

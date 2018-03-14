@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- [Template id=文件服务 longname=文件服务] -->
+<FtpConfig>
+	<!-- [Template id=ftp longname=协议信息 multi=true] -->
+		<FtpProtocol id="${id}" protocolType="ftp" serverIp="${服务器IP|10.22.60.1}" serverPort="${服务器port|21}" userName="${登陆用户名|ftpuser}"
+			password="${登陆密码|ftpuser}" filePath="${文件根目录| }" retryTime="${重试次数|2}" retryInterval="${重试间隔|2000}" dataTimeoutInMs="${客户端超时时间|60000} "/>
+		<!-- [End] -->
+</FtpConfig>
+<!-- [End] -->

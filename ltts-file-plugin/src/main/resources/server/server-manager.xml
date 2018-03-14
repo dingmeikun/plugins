@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- [Template id=文件服务 longname=文件服务] -->
+<CommConfig
+	defaultProtocolId="${默认协议ID|default}">
+</CommConfig>
+<!-- [End] -->

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin id="ftp" displayName="ftp独立插件" activator="cn.sunline.odc.ftp.plugin.FtpPlugin" order="2201" enable="true" failOnInitError="true" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <extension-points/>
+    <extensions>
+        <extension id="ftp.impl" name="ftp扩展点扩展实现" point="file.comm_server" enable="true" singleton="true" errorProcessMode="throwError">
+            <clazzImpl>cn.sunline.odc.ftp.impl.FtpExtensionImpl</clazzImpl>
+        </extension>
+    </extensions>
+    <components/>
+</plugin>
