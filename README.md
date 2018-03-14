@@ -26,3 +26,6 @@ git push -u origin master
 到本地文件夹  
 执行：git clone https://github.com/dingmeikun/plugins.git  
 使用客户端 bit bash here  
+
+6.username password  
+dingmeikun a360  
