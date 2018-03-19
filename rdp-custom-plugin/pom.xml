@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cn.sunline.ltts.rdp</groupId>
+	<artifactId>rdp-custom-plugin</artifactId>
+	<packaging>maven-plugin</packaging>
+
+	<parent>
+		<groupId>cn.sunline.rdp</groupId>
+		<artifactId>rdp-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<!-- 解析加载目标文件和生成文件API -->
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.cxsw.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.cxsw.common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.cxsw.asc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.cxsw.dev.tools</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.cxsw.exec</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>cxsw.common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>rdp.common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.cxsw.plugin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.cxsw.jface.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.cxsw.broswer</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.cxsw.common.viewer</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.sunline.rdp.front.splash</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.sunline.rdp.kernel</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.cxsw.cxui</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.sunline.rdp.front</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.cxsw.device</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.sunline.rdp.link</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.sunline.rdp.widget</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.cxsw.swing</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.rdp.platform</groupId>
+			<artifactId>com.sunline.rdp.device</artifactId>
+		</dependency>
+
+		<!-- 三方依赖 -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xmlpull</groupId>
+			<artifactId>xmlpull</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr-runtime</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.javaparser.javaparser</groupId>
+  			<artifactId>javaparser-rdp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jaxen</groupId>
+			<artifactId>jaxen</artifactId>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- 	<groupId>com.sun</groupId> -->
+		<!-- 	<artifactId>jimi</artifactId> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- 	<groupId>org.tmatesoft.svnkit</groupId> -->
+		<!-- 	<artifactId>svnkit</artifactId> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.tmatesoft.sqljet</groupId>
+			<artifactId>sqljet</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.regnis.q.sequence</groupId>
+			<artifactId>sequence-library</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>xpp3</groupId>
+			<artifactId>xpp3_min</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.java.dev.jna</groupId>
+			<artifactId>jna</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib-nodep</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- 	<groupId>org.eclipse</groupId> -->
+		<!-- 	<artifactId>core.commands</artifactId> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- 	<groupId>org.eclipse</groupId> -->
+		<!-- 	<artifactId>swt.win32.win32.x86_64</artifactId> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- 	<groupId>org.eclipse</groupId> -->
+		<!-- 	<artifactId>com.ibm.icu</artifactId> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>swt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- 	<groupId>it.sauronsoftware</groupId> -->
+		<!-- 	<artifactId>ftp4j</artifactId> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>draw2d</artifactId>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- 	<groupId>org.eclipse</groupId> -->
+		<!-- 	<artifactId>equinox.common</artifactId> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.javacsv</groupId>
+			<artifactId>javacsv</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.belerweb</groupId>
+			<artifactId>pinyin4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ognl</groupId>
+			<artifactId>ognl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.nutz</groupId>
+			<artifactId>nutzdoc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jcl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-1.2-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mvel</groupId>
+			<artifactId>mvel2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ch.ethz.ganymed</groupId>
+			<artifactId>ganymed-ssh2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-pool</groupId>
+			<artifactId>commons-pool</artifactId>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- 	<groupId>org.eclipse</groupId> -->
+		<!-- 	<artifactId>jface</artifactId> -->
+		<!-- </dependency> -->
+
+		<!-- maven插件所需插件项目依赖 -->
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-core</artifactId>
+			<version>3.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-project</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<!-- 否则Mojo中的org.apache.maven.model.Resource，无法解析 -->
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-model</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-plugin-plugin</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+	</dependencies>
+	<description></description>
+
+	<build>
+		<plugins>
+			<!-- 自定义Maven生成插件主要依赖plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<!-- <goalPrefix>statis</goalPrefix> -->
+					<goalPrefix>rdp-custom</goalPrefix>
+				</configuration>
+				<executions>
+					<execution>
+						<id>help-goal</id>
+						<goals>
+							<goal>helpmojo</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
