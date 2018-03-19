@@ -39,5 +39,8 @@ git mv [file-original] [file-renamed]
 git commit -m [message]  
 git push -u origin master 
 
-##8.username password  
-dingmeikun a360  
+##8.以上操作之前，可以先更新代码
+git pull  
+
+##9.username password
+dingmeikun a360 
