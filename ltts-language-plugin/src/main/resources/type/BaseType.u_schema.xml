@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="BaseType" package="cn.sunline.ltts.sys.type" longname="base data type" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <restrictionType id="U_ORGID" longname="organization id" base="string" maxLength="10"/>
+    <restrictionType id="U_USERID" longname="user id" base="string" maxLength="32"/>
+    <restrictionType id="U_BRANCHID" longname="branch id" base="string" maxLength="10"/>
+    <restrictionType id="U_DATETIME" longname="datetime" base="string" pattern="yyyyMMdd HH:mm:ss SSS" maxLength="23"/>
+</schema>

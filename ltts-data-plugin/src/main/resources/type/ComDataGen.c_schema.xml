@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="ComDataGen" package="cn.sunline.ltts.busi.ltts.data.plugin.type" longname="数据生成输入类型" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <complexType id="DataGenInput" longname="生成数据输入类型" dict="false" abstract="false" introduct="false">
+        <element id="private_cust_amount" longname="对私客户总数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.private_cust_amount" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="public_cust_amount" longname="对公客户总数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.public_cust_amount" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="organ_number" longname="机构号" type="DataBaseType.U_STRITYPE" ref="DataGenDict.DataDict.organ_number" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

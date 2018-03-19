@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cn.sunline.ltts.odc.plugin</groupId>
+	<artifactId>ltts-data-plugin</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	
+	<parent>
+		<groupId>cn.sunline.ltts.odc</groupId>
+		<artifactId>ltts-parent</artifactId>
+		<version>1.0.6-RELEASE</version>
+	</parent>
+	
+	<properties>
+		<ltts-module>true</ltts-module>
+		<access-rule>*;**/*</access-rule>
+		<access_jars>ltts-model-r,ltts-loader,log4j-core</access_jars>
+	</properties>
+
+	<dependencies>
+
+	<dependency>
+		<groupId>cn.sunline.edsp.solution</groupId>
+		<artifactId>edsp-solution-sdk</artifactId>
+		<exclusions>
+			<exclusion>
+				<artifactId>edsp-custom-dayend-plugin</artifactId>
+				<groupId>cn.sunline.ltts.frw.plugin</groupId>
+			</exclusion>
+			<exclusion>
+				<artifactId>edsp-junit-simulator</artifactId>
+				<groupId>cn.sunline.edsp.common</groupId>
+			</exclusion>
+			<exclusion>
+				<artifactId>ltts-engine-online-cr-plugin</artifactId>
+				<groupId>cn.sunline.ltts.frw.plugin.cr</groupId>
+			</exclusion>
+			<exclusion>
+				<artifactId>edsp-rpc-plugin</artifactId>
+				<groupId>cn.sunline.ltts.frw.plugin</groupId>
+			</exclusion>
+			<exclusion>
+				<artifactId>edsp-base</artifactId>
+				<groupId>cn.sunline.edsp.component</groupId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	</dependencies>
+	<name></name>
+	<description></description>
+</project>

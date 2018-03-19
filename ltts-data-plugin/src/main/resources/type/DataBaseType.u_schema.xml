@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="DataBaseType" package="cn.sunline.ltts.busi.ltts.data.type" longname="数据生成基本类型" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <restrictionType id="U_DATATYPE" longname="数据类型" base="string" maxLength="20"/>
+    <restrictionType id="U_STRITYPE" longname="字符串类型" base="string" maxLength="20"/>
+    <restrictionType id="U_REGUTYPE" longname="定期数据量" base="string" maxLength="20"/>
+    <restrictionType id="U_CURRTYPE" longname="活期数据量" base="string" maxLength="20"/>
+    <restrictionType id="U_CARDCUNT" longname="卡数据量" base="string" maxLength="20"/>
+    <restrictionType id="U_LOANCUNT" longname="贷款数据量" base="string" maxLength="20"/>
+    <restrictionType id="U_INTETYPE" longname="整数类型" base="int" maxLength="20"/>
+</schema>

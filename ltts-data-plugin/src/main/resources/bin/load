@@ -1,0 +1,323 @@
+#!/bin/ksh 
+
+#function: load table data..
+
+usage(){
+	echo
+	echo
+	echo "Usage:"
+	echo "	$thisname [-u usr/pwd] [-f 'keyword'] [-w rows] [-{airt}[nxdp]] TableName [FileName]"
+	echo 
+	echo "参数说明:"
+	echo "		-u usr/pwd	用户名/密码"
+	echo "		-f keyword	数据分隔符"
+	echo "		-w rows		多少笔提交一次"
+	echo "		-airt		数据加载方法(a-追加;i-空表追加;[r/t]-清表后加载数据)"
+	echo "		nxdp		优化选项(n-不记日志;x-删除索引后新建;d-使用直通路径方式导;p-并行导入)"
+	echo
+	echo "Example:"
+	echo "	$thisname -u UsrName/Pwd TableName FileName"
+	echo "	$thisname TableName FileName"
+	echo "	$thisname TableName"
+	echo "	$thisname -tnx TableName"
+	echo "	$thisname -tnd TableName"
+	echo "	$thisname -dp TableName"
+	echo
+	exit 1
+}
+#export NLS_LANG="SIMPLIFIED CHINESE_CHINA.AL32UTF8"
+#echo "NLS_LANG>>>>"$NLS_LANG
+ouid="$DB_USER/$DB_PASSWD"
+keyword='|'
+omod="APPEND"
+nolog=""
+dropidx=""
+direct=""
+parallel=""
+rows=""
+
+while getopts :u:f:w:iratnxdp OPTION
+do
+	case $OPTION in
+		u)	ouid=$OPTARG
+      #      echo "$ouid" | tr '/' ' ' | wc -w | read res
+	#		if [ $res -ne 2 ]; then
+	#			usage
+	#		fi
+			;;
+		f)	keyword=$OPTARG ;;
+		a)	omod="APPEND" ;;
+		i)	omod="INSERT" ;;
+		r)	omod="REPLACE" ;;
+		t)	omod="TRUNCATE" ;;
+		n)	nolog="yes" ;;
+		x)	dropidx="yes" ;;
+		d)	direct="direct=true skip_index_maintenance=TRUE" ;;
+		p)	parallel="parallel=true" ;;
+		w)	rowst=$OPTARG
+			if [ $rowst -lt 64 ]; then
+				rowst=64
+			fi 
+			rows="rows=$rowst"
+			;;
+		?)	usage ;;
+	esac
+done
+
+shift `expr $OPTIND - 1`
+
+if [ $# -eq 1 ]; then
+	table=$1 
+	fdat=$1.unl
+elif [ $# -eq 2 ]; then
+	table=$1 
+	fdat=$2
+else
+	usage
+fi
+
+
+ftmp=$fdat.tmp
+fsql=$fdat.sql
+fidx=$fdat.idx
+funl=$fdat.unl
+fctl=$fdat.ctl
+fbad=$fdat.bad
+flog=$fdat.log
+ferr=$fdat.err
+
+if [ ! -f "$fdat" -o ! -s "$fdat" ]; then 
+	echo "<$fdat> Open Fail." >&2
+	exit 1
+fi
+#rm -f $funl
+ln -s $fdat $funl
+if [ $? -ne 0 ]; then
+	exit 2
+fi
+
+
+#echo $ouid
+#echo "unload.sh -iw 80 $ftmp \"desc $table\""
+unload -iw 80 $ftmp "desc $table"
+if [ $? -ne 0 ]; then
+	rm -f $funl
+	echo "here"
+	exit 3
+fi
+err=`grep "^ERROR:|$" $ftmp`
+if [ -n "$err" ]; then
+	sed 's/\|$//' $ftmp | grep -v "^$" >&2
+	rm -f $funl $ftmp
+	exit 4
+fi
+
+
+#proc tables strc
+formatts="$HOME/tmp/sql/$1.sql"
+
+if [ -s "$formatts" ]; then
+{
+	echo "LOAD DATA"
+	echo "$omod"
+	echo "INTO TABLE $table"
+	echo "FIELDS TERMINATED BY '$keyword'" 
+	echo "("
+
+	sed -n '3,$p' $ftmp |
+	grep -v "^$" |
+	while read a b
+	do
+		if [ -n "$a" ]; then
+			zidc=`cat $formatts |sed 's/^[[:space:]]*//'|grep -i "^$a" |awk '{print $2}'`
+			lenbz=`echo $zidc|grep ","|grep -v "\,$"`
+			if [ -n "$lenbz" ]
+			then
+				lengthc=`echo $zidc|awk -F '(' '{print $2}'|awk -F ',' '{print $1}'`
+			else
+				lengthc=`echo $zidc|awk -F '(' '{print $2}'|awk -F ')' '{print $1}'`
+			fi
+			qqq=`echo $zidc|grep -i "VARCHAR"`
+			if [ -n "$qqq" ]
+			then
+				echo "$a CHAR($lengthc),"
+			else
+				echo "$a,"
+			fi
+		fi
+	done | 
+	sed \$'s/,$//'
+
+	echo ")"
+
+} >$fctl
+else
+{
+	echo "LOAD DATA"
+	#echo "CHARACTERSET ZHS16GBK"
+	echo "CHARACTERSET UTF8"
+        echo "$omod"
+        echo "INTO TABLE $table"
+        echo "FIELDS TERMINATED BY '$keyword'"
+        echo "("
+
+        sed -n '3,$p' $ftmp |
+        grep -v "^$" |
+	while read a b
+	do
+		if [ -n "$a" ]; then
+			ccc=`cat $ftmp |grep -i "^$a"|awk '{print $NF}'`
+			zidc=`echo $ccc|grep ","`
+			if [ -n "$zidc" ]
+			then
+				lengthc=`echo $ccc|awk -F '(' '{print $2}'|awk -F ',' '{print $1}'`
+			else
+				lengthc=`echo $ccc|awk -F '(' '{print $2}'|awk -F ')' '{print $1}'`
+			fi
+			
+			qqq=`echo $ccc|grep -i "VARCHAR"`
+			if [ -n "$qqq" ]
+			then
+				echo "$a CHAR($lengthc),"
+			else
+				echo "$a,"
+			fi
+		fi
+
+	done |
+	sed \$'s/,$//'
+	echo ")"
+
+} >$fctl
+fi
+
+if [ "$nolog" = "yes" ]; then
+	$DB_OPEN <<-!!! |
+		ALTER TABLE $table NOLOGGING;
+	!!!
+	tee $ftmp |
+	read res <<-!! 
+		`grep "Table altered."`
+	!!
+	if [ -z "$res" ]; then
+		cat $ftmp
+		rm -f $funl $ftmp $fctl
+		exit 5
+	fi
+fi
+
+
+if [ "$dropidx" = "yes" ]; then
+	otbidx.ora -u $ouid $table >$fidx
+	res=$?
+	if [ $res -ne 0 -a $res -ne 5 ]; then
+		rm -f $funl $ftmp $fctl $fidx
+		exit 7
+	fi
+	if [ -s "$fidx" ]; then
+		read count a <<-!!
+			`wc -l $fidx`
+		!!
+		awk '{
+			for(i=3;i<=NF;i++){
+				t=i-1
+				if($t=="index"){ printf("drop index %s;\n",$i); break; }
+			}
+		}' $fidx |
+		$DB_OPEN |
+		res=`tee $ftmp | grep "Index dropped." | wc -l`
+		if [ $res -ne $count ]; then
+			cat $ftmp
+			echo "drop INDEX error, ReIndex ..." 
+			$DB_OPEN <$fidx
+			rm -f $funl $ftmp $fctl
+			exit 8
+		fi
+	fi
+fi
+
+
+err=""
+rm -f $fbad
+sqlldr userid=$ouid control=$fctl log=$flog $rows readsize=20680000 bindsize=20680000 bad=$fbad data=$funl errors=1000000 $direct $parallel >/dev/null 2>$ferr
+#sqlldr userid="njv7test/v7test@10.10.20.10:1521/CLDB" control=$fctl log=$flog bad=$fbad data=$funl errors=1000000 $direct $parallel >/dev/null 2>$ferr
+rm -f $funl
+
+
+if [ -s "$ferr" ]; then
+	cat $ferr
+	err="1$err"
+else
+	rm -f $ferr
+fi
+
+
+if [ -s "$fbad" ]; then
+	echo "Error: Bad data list <$fbad>" >&2
+	err="1$err"
+else
+	rm -f $fbad
+fi
+
+
+#create index
+if [ "$dropidx" = "yes" ]; then
+	if [ -s "$fidx" ]; then
+		read count a <<-!!
+			`wc -l $fidx`
+		!!
+		$DB_OPEN <$fidx |
+		tee $ftmp |
+		res=`grep "Index created." | wc -l`
+		if [ $res -ne $count ]; then
+			cat $ftmp
+			err="1$err"
+		else
+			rm -f $fidx
+		fi
+	fi
+fi
+
+#rebuild index
+if [ "$direct" != "" ]; then
+	otbidx.ora -u $ouid $table|awk '{if($0~/UNIQUE/) {print "alter index "$4" rebuild;"}else{print "alter index "$3" rebuild;"}}' > $fidx
+	if [ -s "$fidx" ]; then
+		read count a <<-!!
+			`wc -l $fidx`
+		!!
+		$DB_OPEN <$fidx|
+		tee $ftmp |
+		res=`grep "Index altered." | wc -l`
+		if [ $res -ne $count ]; then
+			cat $ftmp
+			err="1$err"
+		else
+			rm -f $fidx
+		fi
+	fi
+fi
+
+
+#change nologging to logging
+if [ "$nolog" = "yes" ]; then
+	$DB_OPEN <<-!!! |
+		ALTER TABLE $table LOGGING;
+	!!!
+	tee $ftmp |
+	res=`grep "Table altered."`
+	if [ -z "$res" ]; then
+		cat $ftmp
+		err="1$err"
+	fi
+fi
+
+if [ -s "$formatts" ]
+then
+	\rm -f $formatts
+fi
+
+rm -f $ftmp
+
+if [ -n "$err" ]; then
+	exit 9
+fi

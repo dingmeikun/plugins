@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cn.sunline.ltts.plugin</groupId>
+	<artifactId>ltts-language-plugin</artifactId>
+	<version>1.0.0</version>
+	<packaging>maven-plugin</packaging>
+	<name>LTTS Language Plugin</name>
+	
+	<parent>
+		<groupId>cn.sunline.edsp</groupId>
+		<artifactId>edsp-parent</artifactId>
+		<version>1.2.15-RELEASE</version>
+	</parent>
+	<properties>
+		<ltts-version>2.6.0-BETA_3</ltts-version>
+		<ltts-module>true</ltts-module>
+		<access-rule>*;**/*</access-rule>
+	</properties>
+
+	<dependencies>
+		<!-- 第三方包 -->
+		<dependency>
+		    <groupId>net.sourceforge.javacsv</groupId>
+		    <artifactId>javacsv</artifactId>
+		    <version>2.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<!-- 系统内需求包 -->
+		<dependency>
+			<groupId>cn.sunline.ltts.frw.plugin</groupId>
+			<artifactId>ltts-engine-online-plugin</artifactId>
+			<version>${ltts-version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>junit</artifactId>
+					<groupId>junit</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>cn.sunline.ltts.frw.plugin</groupId> -->
+<!-- 			<artifactId>ltts-custom-comm-plugin</artifactId> -->
+<!-- 			<version>${ltts-version}</version> -->
+<!-- 		</dependency> -->
+	
+		<!-- maven插件所需插件项目依赖 -->
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-core</artifactId>
+			<version>3.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-project</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-model</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-plugin-plugin</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+	</dependencies>
+	
+</project>

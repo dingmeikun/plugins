@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="ApDict" package="cn.sunline.ltts.sys.dict" longname="Ap dictionary" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <complexType id="A" longname="defualt segment" dict="true" abstract="false" introduct="false">
+        <element id="org_id" longname="organization id" type="BaseType.U_ORGID" required="false" desc="法人代码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="org_name" longname="organization name" type="BaseType.U_CHNAME" required="false" desc="法人名称" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="org_address" longname="organization address" type="BaseType.U_ADDRESS" required="false" desc="法人地址" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busi_org_id" longname="organization id" type="BaseType.U_ORGID" required="false" desc="业务法人" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+   </complexType> 
+</schema>

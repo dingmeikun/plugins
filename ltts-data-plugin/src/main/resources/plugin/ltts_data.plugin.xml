@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin id="ltts_data" displayName="业务插件" activator="cn.sunline.ltts.data.plugin.DataGeneratorPlugin" order="1314" enable="true" failOnInitError="true" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <extension-points/>
+    <extensions>
+        <extension id="core.dao.callback.aplt" name="aplt DAO回调实现" point="core.dao.callback" enable="true" singleton="false" errorProcessMode="throwError">
+            <clazzImpl>cn.sunline.ltts.data.plugin.DataGeneratorDaoCallBackImpl</clazzImpl>
+        </extension>
+    </extensions>
+    <components/>
+</plugin>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="DataGenDict" package="cn.sunline.ltts.busi.ltts.data.dict" longname="数据生成相关字典" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <complexType id="DataDict" longname="数据生成字典" dict="true" abstract="false" introduct="false">
+        <element id="data_type" longname="数据类型" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cust_gen_counts" longname="客户数据生成量" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="regular_counts" longname="定期数据量" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="current_counts" longname="活期数据量" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="card_counts" longname="卡数据量" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="loan_counts" longname="贷款数据量" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="entity_type" longname="法人类型" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="organ_number" longname="机构号" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="org_id" longname="法人代码" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="builder_name" longname="生成器名称" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="builder_chname" longname="生成器中文名" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="builder_classpath" longname="生成器类路径" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="concurrent_type" longname="并发类型" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="concurrent_count" longname="并发量" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="organ_concur_count" longname="机构并发数" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_distr_type" longname="数据分布类型" type="DataBaseType.U_STRITYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="personal_cust_count" longname="个人客户数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="public_cust_count" longname="对公客户数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="personal_current_count" longname="个人活期数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="personal_regular_count" longname="个人定期数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="public_current_count" longname="对公活期数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="public_regular_count" longname="对公定期数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="card_current_count" longname="卡活期数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="card_regular_count" longname="卡定期数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="foreign_currency_current_count" longname="外币活期数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="foreign_currency_regular_count" longname="外币定期数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="public_loan_count" longname="对公贷款数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="personal_loan_count" longname="个人贷款数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="public_foreign_currency_loan_count" longname="对公外币贷款数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="personal_foreign_currency_loan_count" longname="个人外币贷款数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="account_sequence" longname="账户流水" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="batch_agent_detail" longname="批量代理明细" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="teller_gengerate" longname="柜员生成" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="simple_personal_two_type_account" longname="简单个人二类账户" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="simple_personal_three_type_account" longname="简单个人三类账户" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="simple_sequence" longname="简单流水" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="simple_public_loan" longname="简单贷款对公" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="simple_personal_loan" longname="简单贷款个人" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="simple_account_vercher_stock" longname="简单账户凭证库存" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="private_cust_amount" longname="对私客户总数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="public_cust_amount" longname="对公客户总数据量" type="DataBaseType.U_INTETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

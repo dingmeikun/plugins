@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<errorConf id="ApErr" longname="application platform error type" package="cn.sunline.ltts.sys.errors" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <errors id="AP" longname="default">
+        <error id="E0001" type="error" message="default organization is not set" errorCode="8003"/>
+        <error id="E0002" type="error" message="failed to acquire default organization record, more than one record existed" errorCode="8004"/>
+        <error id="E0003" type="error" message="the format of document number is incorrect[${docNo}]" errorCode="2006">
+            <parameter id="docNo" type="BaseType.U_IDNO" longname="document number"/>
+        </error>
+        <error id="E0004" type="error" message="transaction code is not defined[${trxnCode}]" errorCode="8003">
+        </error>
+    </errors>
+</errorConf>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="TabDataTable" package="cn.sunline.ltts.busi.ltts.data.tables" longname="数据生成相关参数表定义" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[数据生成相关参数表定义]]></description>
+    <table id="ksys_data_distribute" name="ksys_data_distribute" longname="数据分布图" category="sys" virtual="false" abstract="false" tags="excel">
+        <fields>
+            <field id="organ_number" longname="机构号" type="DataBaseType.U_STRITYPE" ref="DataGenDict.DataDict.organ_number" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="personal_cust_count" longname="个人客户数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.personal_cust_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="public_cust_count" longname="对公客户数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.public_cust_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="personal_current_count" longname="个人活期数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.personal_current_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="personal_regular_count" longname="个人定期数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.personal_regular_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="public_current_count" longname="对公活期数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.public_current_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="public_regular_count" longname="对公定期数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.public_regular_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="card_current_count" longname="卡活期数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.card_current_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="card_regular_count" longname="卡定期数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.card_regular_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="foreign_currency_current_count" longname="外币活期数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.foreign_currency_current_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="foreign_currency_regular_count" longname="外币定期数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.foreign_currency_regular_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="public_loan_count" longname="对公贷款数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.public_loan_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="personal_loan_count" longname="个人贷款数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.personal_loan_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="public_foreign_currency_loan_count" longname="对公外币贷款数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.public_foreign_currency_loan_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="personal_foreign_currency_loan_count" longname="个人外币贷款数据量" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.personal_foreign_currency_loan_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="account_sequence" longname="账户流水" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.account_sequence" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="batch_agent_detail" longname="批量代理明细" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.batch_agent_detail" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="teller_gengerate" longname="柜员生成" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.teller_gengerate" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="simple_personal_two_type_account" longname="简单个人二类账户" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.simple_personal_two_type_account" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="simple_personal_three_type_account" longname="简单个人三类账户" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.simple_personal_three_type_account" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="simple_sequence" longname="简单流水" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.simple_sequence" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="simple_public_loan" longname="简单贷款对公" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.simple_public_loan" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="simple_personal_loan" longname="简单贷款个人" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.simple_personal_loan" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="simple_account_vercher_stock" longname="简单账户凭证库存" type="DataBaseType.U_INTETYPE" ref="DataGenDict.DataDict.simple_account_vercher_stock" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb_1" type="unique" fields="organ_number" operate="selectOne" cache="global"/>
+        </odbindexes>
+        <indexes>
+            <index id="ksys_data_distribute_uk0" type="unique" fields="organ_number">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="ksys_ogan_distribute" name="ksys_ogan_distribute" longname="机构分布图" category="sys" virtual="false" abstract="false" tags="excel">
+        <fields>
+            <field id="entity_type" longname="法人类型" type="DataBaseType.U_STRITYPE" ref="DataGenDict.DataDict.entity_type" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="organ_number" longname="机构号" type="DataBaseType.U_STRITYPE" ref="DataGenDict.DataDict.organ_number" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="data_distr_type" longname="数据分布类型" type="DataBaseType.U_STRITYPE" ref="DataGenDict.DataDict.data_distr_type" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb_1" type="index" fields="entity_type" operate="selectAll" cache="global"/>
+            <index id="odb_2" type="index" fields="organ_number" operate="selectAll" cache="global"/>
+        </odbindexes>
+        <indexes>
+            <index id="ksys_ogan_distribute_uk0" type="unique" fields="entity_type organ_number">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="ksys_org_distribute" name="ksys_org_distribute" longname="法人分布" category="sys" virtual="false" abstract="false" tags="excel">
+        <fields>
+            <field id="org_id" longname="法人代码" type="DataBaseType.U_STRITYPE" ref="DataGenDict.DataDict.org_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="entity_type" longname="法人类型" type="DataBaseType.U_STRITYPE" ref="DataGenDict.DataDict.entity_type" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb_1" type="unique" fields="org_id" operate="selectOne" cache="global"/>
+            <index id="odb_2" type="index" fields="entity_type" operate="selectAll" cache="global"/>
+        </odbindexes>
+        <indexes>
+            <index id="ksys_org_distribute_pk0" type="primarykey" fields="org_id">
+                <ddls/>
+            </index>
+            <index id="ksys_org_distribute_idx0" type="index" fields="entity_type">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="ksys_data_generator" name="ksys_data_generator" longname="数据生成器" category="sys" virtual="false" abstract="false" tags="excel">
+        <fields>
+            <field id="builder_name" longname="生成器名称" type="DataBaseType.U_STRITYPE" ref="DataGenDict.DataDict.builder_name" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="builder_chname" longname="生成器中文名" type="DataBaseType.U_STRITYPE" ref="DataGenDict.DataDict.builder_chname" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="builder_classpath" longname="生成器类路径" type="DataBaseType.U_STRITYPE" ref="DataGenDict.DataDict.builder_classpath" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb_1" type="unique" fields="builder_name" operate="selectOne" cache="global"/>
+        </odbindexes>
+        <indexes>
+            <index id="ksys_data_generator_uk0" type="unique" fields="builder_name">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="ksys_builder_concurrent" name="ksys_builder_concurrent" longname="生成器并发数" category="sys" virtual="false" abstract="false" tags="excel">
+        <fields>
+            <field id="concurrent_type" longname="并发类型" type="DataBaseType.U_STRITYPE" ref="DataGenDict.DataDict.concurrent_type" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="concurrent_count" longname="并发量" type="DataBaseType.U_STRITYPE" ref="DataGenDict.DataDict.concurrent_count" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="concurrent_type" operate="selectOne" cache="global"/>
+        </odbindexes>
+        <indexes>
+            <index id="ksys_builder_concurrent_uk0" type="unique" fields="concurrent_type">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

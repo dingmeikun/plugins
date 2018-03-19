@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<errorConf id="ApPubErr" longname="Common Error" package="cn.sunline.ltts.sys.errors" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <errors id="APPUB" longname="Default">
+        <error id="E0001" type="error" message="Field [${fieldName}-${fieldDesc}] cannot be empty" errorCode="9001">
+            <parameter id="fieldName" type="BaseType.U_FIELDNAME" longname="Field name"/>
+        </error>
+        <error id="E0002" type="error" message="Invalid format for the field value [${fieldValue}], Field Name [${fieldName}], Field Description[${fieldDesc}]" errorCode="9002">
+        </error>
+        <error id="E0003" type="error" message="Field Value [${fieldValue}] longer than the maximum length, Field [${fieldName}-${fieldDesc}]" errorCode="9003">
+        </error>
+    </errors>
+</errorConf>
