@@ -1,6 +1,6 @@
 #cleate mine plugins repository
 
-##usage:
+##usage: 注意，新创建项目，会有提示git config --global user.name "xxx" 需要提前执行这个命令
 
 ##1.命令行上传|创建repository|新建代码库 
 echo "# plugins" >> README.md  
