@@ -24,6 +24,8 @@ git push -u origin master
 
 ##5.首先克隆远程项目  
 到本地文件夹  
+git config --global user.name "丁美坤"
+git config --global user.email "dingmk@sunline.cn"
 登录：git config  
 执行：git clone https://github.com/dingmeikun/plugins.git  
 使用客户端 bit bash here  
