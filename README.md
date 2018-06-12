@@ -1,6 +1,6 @@
 #cleate mine plugins repository
 
-##usage:
+##usage: 注意，新创建项目，会有提示git config --global user.name "xxx" 需要提前执行这个命令
 
 ##1.命令行上传|创建repository|新建代码库 
 echo "# plugins" >> README.md  
@@ -24,6 +24,8 @@ git push -u origin master
 
 ##5.首先克隆远程项目  
 到本地文件夹  
+git config --global user.name "丁美坤"
+git config --global user.email "dingmk@sunline.cn"
 登录：git config  
 执行：git clone https://github.com/dingmeikun/plugins.git  
 使用客户端 bit bash here  
