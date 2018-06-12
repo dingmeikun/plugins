@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin id="hsm" displayName="密码服务插件" activator="cn.sunline.odc.hsm.plugin.HsmPlugin" order="2201" enable="true" failOnInitError="true" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <extension-points>
+        <point id="hsm_server" name="密码服务扩展点" pointType="replace">
+            <clazz>cn.sunline.odc.hsm.spi.HsmServiceExtension</clazz>
+        </point>
+    </extension-points>
+    <extensions>
+        <extension id="hsm.impl" name="密码服务扩展点扩展实现" point="hsm.hsm_server" enable="true" singleton="true" errorProcessMode="throwError">
+            <clazzImpl>cn.sunline.odc.hsm.spi.impl.DefaultHsmExtensionImpl</clazzImpl>
+        </extension>
+    </extensions>
+    <components/>
+</plugin>

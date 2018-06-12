@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+	<Appenders>
+		<!-- 控制台 -->
+		<Console name="busi_console">
+			<PatternLayout>
+				<Pattern>[%d] [%p] [%C:%L] [%t] [%m]%n</Pattern>
+			</PatternLayout>
+		</Console>
+
+		<!-- 根据日志类型路由不同的日志文件 -->
+		<Routing name="busi_route">
+			<Routes pattern="$${ctx:LogType}">
+				<!-- 默认路由日志 -->
+				<Route ref="busi_console" />
+			</Routes>
+		</Routing>
+
+	</Appenders>
+	
+	<!-- 
+		 日志级别顺序，可以调整自定义级别的intLevel，从而调整顺序
+		 
+		 =======================================================================================================
+	     OFF(0) << FATAL(100) << ERROR(200) << WARN(300) << 
+	     SQLINFO/SERVICE(320) << SQL(330) << PROFILE(350) << DATAAREA(360) << METHOD/TECH_METHOD(370) << 
+		 INFO(400) <<    
+		 PARM(450) << 
+		 DEBUG(500), TRACE(600),ALL(Integer.MAX_VALUE)
+		 =======================================================================================================
+		 -->
+	<CustomLevels>
+		<CustomLevel name="SQLIF" intLevel="320" /><!-- sql调用信息日志 -->
+		<CustomLevel name="SVC" intLevel="325" /><!-- 服务调用信息日志 -->
+		<CustomLevel name="SQL" intLevel="330" /><!-- sql语句日志 -->
+		<CustomLevel name="PROF" intLevel="350" /><!-- 性能统计日志 -->
+		<CustomLevel name="DAREA" intLevel="360" /><!-- 数据区日志 -->
+		<CustomLevel name="METHD" intLevel="370" /><!-- 方法日志 -->
+		<CustomLevel name="TECH" intLevel="370" /><!-- 技术方法日志 -->
+		<CustomLevel name="PARM" intLevel="450" /><!-- 参数日志 -->
+	</CustomLevels>
+	
+	<Loggers>
+		<!-- for JDBC -->
+		<AsyncLogger name="jdbc.audit" level="FATAL" additivity="false"
+			includeLocation="true">
+			<AppenderRef ref="busi_route" />
+
+		</AsyncLogger>
+		<AsyncLogger name="jdbc.resultset" level="FATAL"
+			additivity="false" includeLocation="true">
+			<AppenderRef ref="busi_route" />
+
+		</AsyncLogger>
+		<AsyncLogger name="jdbc.sqlonly" level="debug" additivity="false"
+			includeLocation="true">
+			<AppenderRef ref="busi_route" />
+
+		</AsyncLogger>
+		<AsyncLogger name="jdbc.sqltiming" level="FATAL"
+			additivity="false" includeLocation="true">
+			<AppenderRef ref="busi_route" />
+
+		</AsyncLogger>
+
+		<AsyncLogger name="jdbc.connection" level="FATAL"
+			additivity="false" includeLocation="true">
+			<AppenderRef ref="busi_route" />
+
+		</AsyncLogger>
+		<AsyncLogger name="log4jdbc.debug" level="FATAL"
+			additivity="false" includeLocation="true">
+			<AppenderRef ref="busi_route" />
+
+		</AsyncLogger>
+		<!-- for JDBC -->
+
+		<!-- for ibatis -->
+		<AsyncLogger name="org.apache.ibatis" level="error"
+			additivity="false" includeLocation="true">
+			<AppenderRef ref="busi_route" />
+		</AsyncLogger>
+		<!-- for ibatis -->
+
+		<!-- for 屏蔽第三方日志 -->
+		<AsyncLogger name="org.springframework" level="ERROR"
+			additivity="false" includeLocation="true">
+			<AppenderRef ref="busi_route" />
+		</AsyncLogger>
+		<AsyncLogger name="org.mortbay" level="ERROR" additivity="false"
+			includeLocation="true">
+			<AppenderRef ref="busi_route" />
+		</AsyncLogger>
+		<AsyncLogger name="freemarker" level="ERROR" additivity="false"
+			includeLocation="true">
+			<AppenderRef ref="busi_route" />
+		</AsyncLogger>
+		<AsyncLogger name="com.solacesystems" level="FATAL"
+			additivity="false" includeLocation="true">
+			<AppenderRef ref="busi_route" />
+		</AsyncLogger>
+		<AsyncLogger name="com.solacesystems.jcsmp.protocol.impl"
+			level="FATAL" additivity="false" includeLocation="true">
+			<AppenderRef ref="busi_route" />
+		</AsyncLogger>
+		<AsyncLogger name="com.solacesystems.jcsmp.impl" level="FATAL"
+			additivity="false" includeLocation="true">
+			<AppenderRef ref="busi_route" />
+		</AsyncLogger>
+		<AsyncLogger name="org.eclipse.jetty" level="INFO"
+			additivity="false" includeLocation="true">
+			<AppenderRef ref="busi_route" />
+		</AsyncLogger>
+		<AsyncLogger name="org.quartz" level="ERROR" additivity="false"
+			includeLocation="true">
+			<AppenderRef ref="busi_route" />
+		</AsyncLogger>
+		<AsyncLogger name="org.joda" level="ERROR" additivity="false"
+			includeLocation="true">
+			<AppenderRef ref="busi_route" />
+		</AsyncLogger>
+		<AsyncLogger name="org.apache.commons" level="ERROR"
+			additivity="false" includeLocation="true">
+			<AppenderRef ref="busi_route" />
+		</AsyncLogger>
+		<AsyncLogger name="net.sf.jasperreports" level="ERROR"
+			additivity="false" includeLocation="true">
+			<AppenderRef ref="busi_route" />
+		</AsyncLogger>
+		<!-- for 屏蔽第三方日志 -->
+
+
+
+
+		<Root level="debug" additivity="false">
+			<AppenderRef ref="busi_console" />
+		</Root>
+	</Loggers>
+
+
+</Configuration>

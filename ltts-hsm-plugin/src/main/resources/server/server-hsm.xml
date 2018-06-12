@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- [Template id=密码服务 longname=密码服务] -->
+<HsmConfig
+	hsmIp="${加密机IP|127.0.0.1}"
+	hsmPort="${加密机端口|4444}"
+	cvkIndex="${cvkIndex|01}"
+	iwkIndex="${iwkIndex|02}"
+	pwkIndex="${pwkIndex|03}"
+	ppkIndex="${ppkIndex|02}"
+	rsaIndex="${rsaIndex|03}">
+</HsmConfig>
+<!-- [End] -->
