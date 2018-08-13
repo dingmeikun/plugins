@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin id="dmk" displayName="普通服务插件" activator="cn.dingmk.plugin.plugin.impl.DmkPlugin" order="0" enable="true" failOnInitError="true" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <extension-points/>
+    <extensions/>
+    <components/>
+</plugin>
